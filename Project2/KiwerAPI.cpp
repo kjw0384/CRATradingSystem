@@ -4,6 +4,7 @@
 #include <string>
 
 using namespace std;
+
 class KiwerAPI {
 public:
 	void login(string ID, string password) {

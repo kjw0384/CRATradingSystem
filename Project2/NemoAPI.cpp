@@ -5,6 +5,7 @@
 #include <string>
 
 using namespace std;
+
 class NemoAPI {
 public:
 	void certification(string ID, string pass) {

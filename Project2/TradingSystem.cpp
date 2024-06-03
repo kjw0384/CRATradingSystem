@@ -4,51 +4,61 @@
 #include "NemoAPI.cpp"
 #include "KiwerAPI.cpp"
 
+#include "NemoAPI.cpp"
+#include "KiwerAPI.cpp"
+
 #define interface struct
 
 using namespace std;
 
-interface IStockerBroker {
+interface IStockerBrocker {
 	virtual void login(string ID, string password) = 0;
 	virtual void buy(string stockCode, int price, int count) = 0;
 	virtual void sell(string stockCode, int price, int count) = 0;
 	virtual int getPrice(string stockCode) = 0;
 };
 
-class KiwerBroker : public IStockerBroker {
+class KiwerBroker : public IStockerBrocker {
+
 	void login(string ID, string password) override {
-		kiwer->login(ID, password);
-		return;
-	}
-	void buy(string stockCode, int price, int count) override {
-		return;
-	}
-	void sell(string stockCode, int price, int count) override {
-		return;
-	}
-	int getPrice(string stockCode) override {
-		return 0;
+		m_KiwerAPI.login(ID, password);
 	}
 
-	KiwerAPI* kiwer;
+	void buy(string stockCode, int price, int count) {
+		return m_KiwerAPI.buy(stockCode, count, price);
+	}
+
+	void sell(string stockCode, int price, int count) {
+		m_KiwerAPI.sell(stockCode, count, price);
+	}
+
+	int getPrice(string stockCode) {
+		return m_KiwerAPI.currentPrice(stockCode);
+	}
+
+private:
+	KiwerAPI m_KiwerAPI;
 };
 
-class NemoBroker : public IStockerBroker {
+class NemoBroker : public IStockerBrocker {
 	void login(string ID, string password) override {
-		nemo->certification(ID, password);
-		return;
-	}
-	void buy(string stockCode, int price, int count) override {
-		return;
-	}
-	void sell(string stockCode, int price, int count) override {
-		return;
-	}
-	int getPrice(string stockCode) override {
-		return 0;
+		m_NemoAPI.certification(ID, password);
 	}
 
-	NemoAPI* nemo;
+	void buy(string stockCode, int price, int count) {
+		m_NemoAPI.purchasingStock(stockCode, price, count);
+	}
+
+	void sell(string stockCode, int price, int count) {
+		m_NemoAPI.sellingStock(stockCode, price, count);
+	}
+
+	int getPrice(string stockCode) {
+		return m_NemoAPI.getMarketPrice(stockCode, 0);
+	}
+
+private:
+	NemoAPI m_NemoAPI;
 };
 
 class TradingSystem {
@@ -61,7 +71,7 @@ public:
 			stockBroker = new NemoBroker();
 		}
 	}
-
+  
 	void login(string ID, string password) {
 		if (ID.empty() || password.empty()) {
 			throw std::invalid_argument("invalid argument");

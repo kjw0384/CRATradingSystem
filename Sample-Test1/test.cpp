@@ -4,9 +4,6 @@
 #include "../Project2/NemoAPI.cpp"
 #include "../Project2/TradingSystem.cpp"
 
-using namespace testing;
-using namespace std;
-
 //1. selectStockBrocker
 TEST(TradingSystemTest, selectStockBroker) {
 	TradingSystem t;
