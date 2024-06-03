@@ -17,7 +17,7 @@ TEST(TradingSystemTest, selectStockBroker) {
 //2-1. login success
 TEST(TradingSystemTest, loginSuccess) {
 	TradingSystem t;
-	t.selectStockBroker(new KiwiDriver());
+	t.selectStockBroker("Kiwer");
 	try {
 		t.login("user", "1234");
 	}
