@@ -4,10 +4,12 @@
 #include "../Project2/NemoAPI.cpp"
 #include "../Project2/TradingSystem.cpp"
 
+using namespace testing;
+
 //1. selectStockBrocker
 TEST(TradingSystemTest, selectStockBroker) {
 	TradingSystem t;
-	t.selectStockBroker();
-	EXPECT_THAT(t.stockBroker != nullptr);
+	t.selectStockBroker("Kiwer");
+	EXPECT_THAT(t.stockBroker, Ne(nullptr));
 }
 
