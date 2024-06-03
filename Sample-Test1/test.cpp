@@ -33,3 +33,19 @@ TEST(TradingSystemTest, loginFailWhenBrockerNotSelected) {
 	EXPECT_THROW(t.login("user", "1234"), exception);
 }
 
+//3-1. buy Success
+TEST(TradingSystemTest, buySuccess) {
+	TradingSystem t;
+	t.selectStockBroker(new KiwiDriver());
+	t.setBalance(10000);
+	t.buy("samsung", 1, 300);
+	EXPECT_EQ(t.balance, 9700);
+}
+
+//3-2. buy Fail if no balance
+TEST(TradingSystemTest, a) {
+	TradingSystem t;
+	t.selectStockBroker(new KiwiDriver());
+	t.setBalance(100);
+	EXPECT_THROW(t.buy("nVIdia", 100, 300), exception);
+}
