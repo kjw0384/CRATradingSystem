@@ -14,13 +14,14 @@ interface IStockerBroker {
 };
 
 class KiwerBroker : public IStockerBroker {
+
 public:
 	void login(string ID, string password) override {
 		return;
 	}
 	void buy(string stockCode, int price, int count) override {
-		m_API->buy(stockCode, price, count);
 
+		m_API->buy(stockCode, price, count);
 		return;
 	}
 	void sell(string stockCode, int price, int count) override {
@@ -35,11 +36,14 @@ private:
 };
 
 class NemoBroker : public IStockerBroker {
+
 public:
+
 	void login(string ID, string password) override {
 		return;
 	}
 	void buy(string stockCode, int price, int count) override {
+
 		m_API->purchasingStock(stockCode, price, count);
 		return;
 	}
@@ -64,6 +68,7 @@ public:
 			stockBroker = new NemoBroker();
 		}
 	}
+
 
 	void buy(string stockCode, int price, int count)
 	{

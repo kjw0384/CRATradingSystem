@@ -63,3 +63,21 @@ TEST(TradingSystemTest, sellSuccess) {
 		FAIL();
 	}
 }
+
+
+//5-1. getPrice Success
+TEST(TradingSystemTest, getPriceSuccess) {
+	TradingSystem t;
+	t.selectStockBroker(new KiwiDriver());
+	t.login("user", "1234");
+	EXPECT_THAT(t.getPrice("Amazon"), Gt(0));
+}
+
+//5-2. getPrice Fail if stockCode is null
+TEST(TradingSystemTest, getPriceFailIfStockCodeIsNull) {
+	TradingSystem t;
+	t.selectStockBroker(new KiwiDriver());
+	t.login("user", "1234");
+	EXPECT_THROW(t.getPrice(""), exception);
+}
+
