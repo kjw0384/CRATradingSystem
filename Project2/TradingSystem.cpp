@@ -1,6 +1,7 @@
 #include <string>
-#include "../Project2/KiwerAPI.cpp"
-#include "../Project2/NemoAPI.cpp"
+#include <stdexcept>
+#include "NemoAPI.cpp"
+#include "KiwerAPI.cpp"
 
 #define interface struct
 
@@ -17,11 +18,12 @@ class KiwerBroker : public IStockerBroker {
 
 public:
 	void login(string ID, string password) override {
+		kiwer->login(ID, password);
 		return;
 	}
 	void buy(string stockCode, int price, int count) override {
 
-		m_API->buy(stockCode, price, count);
+		kiwer->buy(stockCode, price, count);
 		return;
 	}
 	void sell(string stockCode, int price, int count) override {
@@ -30,9 +32,8 @@ public:
 	int getPrice(string stockCode) override {
 		return 0;
 	}
-
-private: 
-	KiwerAPI* m_API;
+private:
+	KiwerAPI* kiwer;
 };
 
 class NemoBroker : public IStockerBroker {
@@ -40,11 +41,12 @@ class NemoBroker : public IStockerBroker {
 public:
 
 	void login(string ID, string password) override {
+		nemo->certification(ID, password);
 		return;
 	}
 	void buy(string stockCode, int price, int count) override {
 
-		m_API->purchasingStock(stockCode, price, count);
+		nemo->purchasingStock(stockCode, price, count);
 		return;
 	}
 	void sell(string stockCode, int price, int count) override {
@@ -55,7 +57,7 @@ public:
 	}
 
 private:
-	NemoAPI* m_API;
+	NemoAPI* nemo;
 };
 
 class TradingSystem {
@@ -69,11 +71,23 @@ public:
 		}
 	}
 
+	void login(string ID, string password) {
+		if (ID.empty() || password.empty()) {
+			throw std::invalid_argument("invalid argument");
+		}
+
+		if (stockBroker == nullptr) {
+			throw std::bad_alloc();
+		}
+
+		stockBroker->login(ID, password);
+	}
 
 	void buy(string stockCode, int price, int count)
 	{
 		stockBroker->buy(stockCode, price, count);
 	}
 
-	IStockerBroker* stockBroker;
+
+	IStockerBroker* stockBroker{};
 };
