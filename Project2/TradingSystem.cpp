@@ -1,4 +1,5 @@
 #include <string>
+#include <stdexcept>
 
 #define interface struct
 
@@ -51,6 +52,12 @@ public:
 		}
 		else if (broker == "Nemo") {
 			stockBroker = new NemoBroker();
+		}
+	}
+
+	void login(string ID, string password) {
+		if (ID.empty() || password.empty()) {
+			throw std::invalid_argument("invalid argument");
 		}
 	}
 
