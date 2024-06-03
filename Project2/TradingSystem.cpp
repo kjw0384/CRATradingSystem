@@ -1,46 +1,57 @@
 #include <string>
+#include "../Project2/KiwerAPI.cpp"
+#include "../Project2/NemoAPI.cpp"
 
 #define interface struct
 
 using namespace std;
 
-interface IStockerBrocker {
+interface IStockerBroker {
 	virtual void login(string ID, string password) = 0;
 	virtual void buy(string stockCode, int price, int count) = 0;
 	virtual void sell(string stockCode, int price, int count) = 0;
 	virtual int getPrice(string stockCode) = 0;
 };
 
-class KiwerBroker : public IStockerBrocker {
+class KiwerBroker : public IStockerBroker {
+public:
 	void login(string ID, string password) override {
 		return;
 	}
-	void buy(string stockCode, int price, int count) {
+	void buy(string stockCode, int price, int count) override {
+		m_API->buy(stockCode, price, count);
+
 		return;
 	}
-	void sell(string stockCode, int price, int count) {
+	void sell(string stockCode, int price, int count) override {
 		return;
 	}
-	int getPrice(string stockCode) {
+	int getPrice(string stockCode) override {
 		return 0;
 	}
 
+private: 
+	KiwerAPI* m_API;
 };
 
-class NemoBroker : public IStockerBrocker {
+class NemoBroker : public IStockerBroker {
+public:
 	void login(string ID, string password) override {
 		return;
 	}
-	void buy(string stockCode, int price, int count) {
+	void buy(string stockCode, int price, int count) override {
+		m_API->purchasingStock(stockCode, price, count);
 		return;
 	}
-	void sell(string stockCode, int price, int count) {
+	void sell(string stockCode, int price, int count) override {
 		return;
 	}
-	int getPrice(string stockCode) {
+	int getPrice(string stockCode) override {
 		return 0;
 	}
 
+private:
+	NemoAPI* m_API;
 };
 
 class TradingSystem {
@@ -54,5 +65,10 @@ public:
 		}
 	}
 
-	IStockerBrocker* stockBroker;
+	void buy(string stockCode, int price, int count)
+	{
+		stockBroker->buy(stockCode, price, count);
+	}
+
+	IStockerBroker* stockBroker;
 };
