@@ -43,9 +43,22 @@ TEST(TradingSystemTest, buySuccess) {
 }
 
 //3-2. buy Fail if no balance
-TEST(TradingSystemTest, a) {
+TEST(TradingSystemTest, buyFailIfNoBalance) {
 	TradingSystem t;
 	t.selectStockBroker(new KiwiDriver());
 	t.setBalance(100);
 	EXPECT_THROW(t.buy("nVIdia", 100, 300), exception);
+}
+
+//4-1. sell Success
+TEST(TradingSystemTest, sellSuccess) {
+	TradingSystem t;
+	t.selectStockBroker(new KiwiDriver());
+	t.setBalance(100);
+	try {
+		t.sell("Hynix", 5)
+	}
+	catch (exception e) {
+		FAIL();
+	}
 }
