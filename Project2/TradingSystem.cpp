@@ -1,4 +1,5 @@
 #include <string>
+#include <map>
 #include <stdexcept>
 #include "NemoAPI.cpp"
 #include "KiwerAPI.cpp"
@@ -70,6 +71,38 @@ public:
 			stockBroker = new NemoBroker();
 		}
 	}
+  
+	void login(string ID, string password) {
+		if (ID.empty() || password.empty()) {
+			throw std::invalid_argument("invalid argument");
+		}
 
-	IStockerBrocker* stockBroker;
+		if (stockBroker == nullptr) {
+			throw std::bad_alloc();
+		}
+
+		stockBroker->login(ID, password);
+	}
+
+	IStockerBroker* stockBroker{};
+	user user;
+};
+
+class user {
+public:
+
+	int getStockCount(string stockCode) {
+		if (stockCountPerStockCode.find(stockCode) != stockCountPerStockCode.end())
+			return stockCountPerStockCode[stockCode];
+		else
+			return 0;
+	}
+
+	void setStockCount(string stockCode, int value) {
+		stockCountPerStockCode[stockCode] = value;
+	}
+
+	int balance = 0;
+	map<string, int> stockCountPerStockCode;
+
 };
