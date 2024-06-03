@@ -10,8 +10,8 @@ using namespace std;
 //1. selectStockBrocker
 TEST(TradingSystemTest, selectStockBroker) {
 	TradingSystem t;
-	t.selectStockBroker(new KiwiDriver());
-	EXPECT_THAT(t.stockBroker != nullptr);
+	t.selectStockBroker("Kiwer");
+	EXPECT_THAT(t.stockBroker, Ne(nullptr));
 }
 
 //2-1. login success
