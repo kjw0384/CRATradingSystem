@@ -2,8 +2,12 @@
 #include "gmock/gmock.h"
 #include "../Project2/KiwerAPI.cpp"
 #include "../Project2/NemoAPI.cpp"
+#include "../Project2/TradingSystem.cpp"
 
-TEST(TestCaseName, TestName) {
-  EXPECT_EQ(1, 1);
-  EXPECT_TRUE(true);
+//1. selectStockBrocker
+TEST(TradingSystemTest, selectStockBroker) {
+	TradingSystem t;
+	t.selectStockBroker();
+	EXPECT_THAT(t.stockBroker != nullptr);
 }
+
