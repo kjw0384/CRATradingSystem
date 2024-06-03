@@ -1,5 +1,7 @@
 #include <string>
 #include <stdexcept>
+#include "NemoAPI.cpp"
+#include "KiwerAPI.cpp"
 
 #define interface struct
 
@@ -14,6 +16,7 @@ interface IStockerBroker {
 
 class KiwerBroker : public IStockerBroker {
 	void login(string ID, string password) override {
+		kiwer->login(ID, password);
 		return;
 	}
 	void buy(string stockCode, int price, int count) override {
@@ -26,10 +29,12 @@ class KiwerBroker : public IStockerBroker {
 		return 0;
 	}
 
+	KiwerAPI* kiwer;
 };
 
 class NemoBroker : public IStockerBroker {
 	void login(string ID, string password) override {
+		nemo->certification(ID, password);
 		return;
 	}
 	void buy(string stockCode, int price, int count) override {
@@ -42,6 +47,7 @@ class NemoBroker : public IStockerBroker {
 		return 0;
 	}
 
+	NemoAPI* nemo;
 };
 
 class TradingSystem {
@@ -59,7 +65,13 @@ public:
 		if (ID.empty() || password.empty()) {
 			throw std::invalid_argument("invalid argument");
 		}
+
+		if (stockBroker == nullptr) {
+			throw std::bad_alloc();
+		}
+
+		stockBroker->login(ID, password);
 	}
 
-	IStockerBroker* stockBroker;
+	IStockerBroker* stockBroker{};
 };

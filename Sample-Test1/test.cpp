@@ -30,7 +30,7 @@ TEST(TradingSystemTest, loginSuccess) {
 TEST(TradingSystemTest, loginFailWhenBrockerNotSelected) {
 	TradingSystem t;
 	
-	EXPECT_THROW(t.login("", "1234"), exception);
+	EXPECT_THROW(t.login("user", "1234"), exception);
 }
 
 //3-1. buy Success
