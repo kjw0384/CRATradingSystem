@@ -45,14 +45,16 @@ class NemoBroker : public IStockerBroker {
 
 class TradingSystem {
 public:
-	void selectStockBroker(string broker) {
-		if (broker == "Kiwer") {
-			stockBroker = new KiwerBroker();
+	TradingSystem() : stockBroker(nullptr) {}
+	void selectStockBroker(IStockerBroker* broker) {
+		if (stockBroker != nullptr) {
+			delete stockBroker; // 이전 증권사 객체 삭제
 		}
-		else if (broker == "Nemo") {
-			stockBroker = new NemoBroker();
-		}
+		stockBroker = broker;
 	}
 
 	IStockerBroker* stockBroker;
+
+private:
+
 };
