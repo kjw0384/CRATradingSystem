@@ -7,10 +7,6 @@
 //1. selectStockBrocker
 TEST(TradingSystemTest, selectStockBroker) {
 	TradingSystem t;
-<<<<<<< HEAD
-	t.selectStockBroker();
-	EXPECT_THAT(t.stockBroker != nullptr);
-=======
 	t.selectStockBroker("Kiwer");
 	EXPECT_THAT(t.stockBroker, Ne(nullptr));
 }
@@ -79,6 +75,5 @@ TEST(TradingSystemTest, getPriceFailIfStockCodeIsNull) {
 	t.selectStockBroker(new KiwiDriver());
 	t.login("user", "1234");
 	EXPECT_THROW(t.getPrice(""), exception);
->>>>>>> f5142c06ad8a702aea01593eddc6879737a918e4
 }
 
