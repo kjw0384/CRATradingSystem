@@ -1,4 +1,5 @@
 #include <string>
+#include <map>
 #include <stdexcept>
 #include "NemoAPI.cpp"
 #include "KiwerAPI.cpp"
@@ -74,4 +75,24 @@ public:
 	}
 
 	IStockerBroker* stockBroker{};
+	user user;
+};
+
+class user {
+public:
+
+	int getStockCount(string stockCode) {
+		if (stockCountPerStockCode.find(stockCode) != stockCountPerStockCode.end())
+			return stockCountPerStockCode[stockCode];
+		else
+			return 0;
+	}
+
+	void setStockCount(string stockCode, int value) {
+		stockCountPerStockCode[stockCode] = value;
+	}
+
+	int balance = 0;
+	map<string, int> stockCountPerStockCode;
+
 };
