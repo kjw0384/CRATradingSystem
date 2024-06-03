@@ -6,32 +6,6 @@
 
 using namespace std;
 
-class NemoDriver : public StockerBrockerDriverInterface {
-public :
-	virtual bool login(string ID, string password) {
-		m_NemoAPI.certification(ID, password);
-	}
-
-	virtual void buy(string stockName, int budget) {
-		int currentPrice = m_NemoAPI.getMarketPrice(stockName, 0);
-		int buyCount = budget / currentPrice;
-		m_NemoAPI.purchasingStock(stockName, currentPrice, buyCount);
-	}
-
-	virtual void sell(string stockName, int stockCnt) {
-		int currentPrice = m_NemoAPI.getMarketPrice(stockName, 0);
-		m_NemoAPI.sellingStock(stockName, stockCnt);
-	}
-
-	virtual int	 getPrice(string stockName) {
-		return m_NemoAPI.getMarketPrice(stockName, 0);
-	}
-
-private: 
-	NemoAPI m_NemoAPI;
-};
-
-
 class NemoAPI {
 public:
 	void certification(string ID, string pass) {

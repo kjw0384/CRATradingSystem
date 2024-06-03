@@ -1,4 +1,7 @@
 #include <string>
+#include <stdexcept>
+#include "NemoAPI.cpp"
+#include "KiwerAPI.cpp"
 
 #include "NemoAPI.cpp"
 #include "KiwerAPI.cpp"

@@ -25,26 +25,3 @@ public:
 		return ret;
 	}
 };
-
-class KiwerDriver {
-public:
-	virtual void login(string ID, string password) {
-		m_KiwerAPI.login(ID, password);
-	}
-
-	virtual int	 getPrice(string stockName) {
-		return m_KiwerAPI.currentPrice(stockName);
-	}
-
-	virtual void buy(string stockName, int budget) {
-		int price = getPrice(stockName);
-		return m_KiwerAPI.buy(stockName, budget / price, price);
-	}
-
-	virtual void sell(string stockName, int stockCnt) {
-		m_KiwerAPI.sell(stockName, stockCnt, getPrice(stockName));
-	}
-
-private:
-	KiwerAPI m_KiwerAPI; 
-};
