@@ -4,40 +4,40 @@
 
 using namespace std;
 
-interface IStockerBrocker {
+interface IStockerBroker {
 	virtual void login(string ID, string password) = 0;
 	virtual void buy(string stockCode, int price, int count) = 0;
 	virtual void sell(string stockCode, int price, int count) = 0;
 	virtual int getPrice(string stockCode) = 0;
 };
 
-class KiwerBroker : public IStockerBrocker {
+class KiwerBroker : public IStockerBroker {
 	void login(string ID, string password) override {
 		return;
 	}
-	void buy(string stockCode, int price, int count) {
+	void buy(string stockCode, int price, int count) override {
 		return;
 	}
-	void sell(string stockCode, int price, int count) {
+	void sell(string stockCode, int price, int count) override {
 		return;
 	}
-	int getPrice(string stockCode) {
+	int getPrice(string stockCode) override {
 		return 0;
 	}
 
 };
 
-class NemoBroker : public IStockerBrocker {
+class NemoBroker : public IStockerBroker {
 	void login(string ID, string password) override {
 		return;
 	}
-	void buy(string stockCode, int price, int count) {
+	void buy(string stockCode, int price, int count) override {
 		return;
 	}
-	void sell(string stockCode, int price, int count) {
+	void sell(string stockCode, int price, int count) override {
 		return;
 	}
-	int getPrice(string stockCode) {
+	int getPrice(string stockCode) override {
 		return 0;
 	}
 
@@ -54,5 +54,5 @@ public:
 		}
 	}
 
-	IStockerBrocker* stockBroker;
+	IStockerBroker* stockBroker;
 };
